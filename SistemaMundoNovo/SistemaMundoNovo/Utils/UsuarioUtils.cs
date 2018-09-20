@@ -24,5 +24,11 @@ namespace SistemaMundoNovo.Utils
 
             return usuarioLogado;
         }
+
+        public static int RetornaIdBibliotecarioLogado()
+        {
+            ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
+            return b._Bibliotecario.BibliotecarioID;
+        }
     }
 }
