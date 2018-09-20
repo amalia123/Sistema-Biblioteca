@@ -30,5 +30,7 @@ namespace SistemaMundoNovo.Utils
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             return b._Bibliotecario.BibliotecarioID;
         }
+        
+       
     }
 }
