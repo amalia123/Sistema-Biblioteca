@@ -12,6 +12,23 @@ namespace SistemaMundoNovo.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
+        //Buscar livro
+        public ActionResult Busca(string busca)
+        {
+            ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
+            int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
+            var livros = db.Livros.Where(x => x.titulo.Contains(busca) && x.BibliotecarioID == idBibliotecarioLogado);
+            if (livros.Count() == 0)
+            {
+                ViewBag.resultado = "Livro não encontrado";
+                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).ToList();
+                return View("Index");
+            }
+            ViewBag.Livros = livros;
+            return View(livros);
+
+        }
+
         // GET: Livros
         public ActionResult Index()
         {
