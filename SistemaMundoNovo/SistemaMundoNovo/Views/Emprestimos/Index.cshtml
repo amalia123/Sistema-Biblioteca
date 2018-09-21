@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SistemaMundoNovo.Models.Emprestimo>
+
+@{
+    ViewBag.Title = "IndexEmprestimos";
+}
+
+<h2>Empréstimos</h2>
+<hr />
+
+<p>
+    @Html.ActionLink("Novo Emprestimo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>Livro</th>
+        <th>Bibliotecario</th>
+        <th>Cliente</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Valor)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataPrazo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataDevolucao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th>
+            Status
+        </th>
+        <th></th>
+
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>@Html.DisplayFor(modelItem => item.Livro.titulo)</td>
+
+        <td>@Html.DisplayFor(modelItem => item.BibliotecarioID)</td>
+
+        <td>@Html.DisplayFor(modelItem => item.Nome)</td>
+
+        <td>
+            @{
+                if (DateTime.Parse(item.DataDevolucao).Year != 2000)
+                {
+                    TimeSpan date = DateTime.Parse(item.DataDevolucao) - DateTime.Parse(item.DataPrazo);
+                    int totalDias = date.Days;
+
+                    if (item.Status == -1)
+                    {
+                        item.Valor = item.Valor + (item.Valor * 0.1 * totalDias);
+                    }
+                    else if (item.Status == 2)
+                    {
+                        item.Valor = item.Valor + (item.Valor * 0.1 * totalDias);
+                    }
+                }
+
+            }
+
+            @Html.DisplayFor(modelItem => item.Valor)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DataPrazo)
+        </td>
+        <td>
+            @{
+                if (DateTime.Parse(item.DataDevolucao).Year != 2000)
+                {
+                    @Html.DisplayFor(modelItem => item.DataDevolucao);
+                }
+            }
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Endereco)
+        </td>
+        <td>
+            @{
+                if (item.Status == -1)
+                {
+                    <span style="color: red">Atrasado</span>
+                <td>@Html.ActionLink("Dar Baixa", "Darbaixa", new { id = item.EmprestimoId });</td>
+            }
+            else if (item.Status == 0)
+            {
+                <span style="color: darkgoldenrod">Pendente</span>
+                <td>@Html.ActionLink("Dar Baixa", "Edit", new { id = item.EmprestimoId });</td>
+            }
+            else if (item.Status == 1)
+            {
+                <span style="color: darkgreen">Entregue</span>
+            }
+            else if (item.Status == 2)
+            {
+                <span style="color: orangered">Entregue com atraso</span>
+            }
+            }
+            </td >
+        </tr>
+        }
+
+</table>

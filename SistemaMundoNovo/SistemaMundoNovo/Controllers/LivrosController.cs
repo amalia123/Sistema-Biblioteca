@@ -17,7 +17,7 @@ namespace SistemaMundoNovo.Controllers
         {
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-            var livroes = db.Livros.Include(x => x.BibliotecarioID == idBibliotecarioLogado);
+            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado);
             return View(livroes.ToList());
         }
 
@@ -109,6 +109,7 @@ namespace SistemaMundoNovo.Controllers
             livroAux.autor = livro.autor;
             livroAux.categoria = CategoriaDAO.BuscarCategoriaPorId(Categorias);
             livroAux.descricao = livro.descricao;
+           // livroAux.BibliotecarioID = livro.BibliotecarioID;
             livroAux.titulo = livro.titulo;
 
             if (ModelState.IsValid)
