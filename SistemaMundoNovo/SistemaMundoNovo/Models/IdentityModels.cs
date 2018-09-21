@@ -48,7 +48,6 @@ namespace SistemaMundoNovo.Models
 
         public DbSet<SistemaMundoNovo.Models.Categoria> Categorias { get; set; }
 
-        public DbSet<SistemaMundoNovo.Models.Emprestimo> Emprestimos { get; set; }
        
     }
 }
