@@ -15,12 +15,9 @@ namespace SistemaMundoNovo.Controllers
         // GET: Livros
         public ActionResult Index()
         {
-<<<<<<< HEAD
+
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-=======
-            int idBibliotecarioLogado = UsuarioUtils.RetornaIdBibliotecarioLogado(); 
->>>>>>> 217088c25fe9ef2ff50f1d0298e17c9521000168
             var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado);
             return View(livroes.ToList());
         }
