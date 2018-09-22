@@ -50,10 +50,9 @@
 
         <div class="form-group">
             @* Dar o mesmo nome da ViewBag *@
-            @Html.LabelFor(model => model.categoria, "Categorias", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Categorias", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Categorias", null, " -- SELECIONE UMA CATEGORIA -- ", htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.categoria, "", new { @class = "text-danger" })
+                @Html.DropDownList("Categorias", null, " -- SELECIONE UMA CATEGORIA -- ",new { @class = "form-control" })
             </div>
         </div>
 
