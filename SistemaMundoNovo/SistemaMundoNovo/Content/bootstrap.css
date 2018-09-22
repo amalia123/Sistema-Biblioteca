@@ -10,7 +10,10 @@ html {
       -ms-text-size-adjust: 100%;
 }
 body {
-  margin: 0;
+    margin: 0;
+    background-image: url('../Imagens/imgb.png');
+    width: 100%;
+    background-repeat: no-repeat;
 }
 article,
 aside,
