@@ -1088,7 +1088,7 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
+  color: #000;
   background-color: #fff;
 }
 input,
@@ -1405,6 +1405,9 @@ a.bg-warning:focus {
 }
 .bg-danger {
   background-color: #f2dede;
+}
+.bg-transparent{
+    background-color: none;
 }
 a.bg-danger:hover,
 a.bg-danger:focus {
