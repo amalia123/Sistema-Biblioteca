@@ -21,7 +21,7 @@ namespace SistemaMundoNovo.Controllers
             if (livros.Count() == 0)
             {
                 ViewBag.resultado = "Livro não encontrado";
-                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria.Nome).ToList();
+                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria).ToList();
                 return View("Index");
             }
             ViewBag.Livros = livros;
