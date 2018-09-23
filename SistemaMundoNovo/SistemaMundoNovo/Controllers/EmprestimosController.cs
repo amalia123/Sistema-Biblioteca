@@ -148,10 +148,10 @@ namespace SistemaMundoNovo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,livro,valor,cep,endereco")] Emprestimo emprestimo, int idBibliotecarioLogado, string nome, DateTime dataPrazo)
+        public ActionResult Create([Bind(Include = "id,livro,valor,cep,endereco,BibliotecarioID")] Emprestimo emprestimo, string nome, DateTime dataPrazo)
         {
-            ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
-           idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
+          /*  ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
+           idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;*/
 
             string url = "https://viacep.com.br/ws/" + emprestimo.Cep + "/json/";
             WebClient client = new WebClient();
@@ -178,10 +178,11 @@ namespace SistemaMundoNovo.Controllers
 
             emprestimo.Status = 0;
             emprestimo.Nome = nome;
-            
-            emprestimo.BibliotecarioID = idBibliotecarioLogado;
+            emprestimo.BibliotecarioID = UsuarioUtils.RetornaIdBibliotecarioLogado();
+
             if (ModelState.IsValid)
             {
+               
                 emprestimo.Livro.ano = DateTime.Now;
                 emprestimo.DataDevolucao = "26/04/2000 00:00:00";
                 emprestimo.DataPrazo = Convert.ToString(dataPrazo);

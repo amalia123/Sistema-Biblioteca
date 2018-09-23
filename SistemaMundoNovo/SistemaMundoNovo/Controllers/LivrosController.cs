@@ -119,12 +119,17 @@ namespace SistemaMundoNovo.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "id,titulo,autor,ano,descricao,BibliotecarioID")] Livro livro)
         {
+
+            /*ApplicationUser usuario = UsuarioUtils.RetornaUsuarioLogado();
+            int idBibliotecarioLogado = usuario._Bibliotecario.BibliotecarioID;*/
+
             Livro livroAux = db.Livros.Find(livro.id);
             livroAux.ano = livro.ano;
             livroAux.autor = livro.autor;
             livroAux.categoria = livro.categoria;
             livroAux.descricao = livro.descricao;
-           // livroAux.BibliotecarioID = livro.BibliotecarioID;
+            //livroAux.BibliotecarioID = livro.BibliotecarioID;
+            //livroAux.BibliotecarioID = idBibliotecarioLogado;
             livroAux.titulo = livro.titulo;
 
             if (ModelState.IsValid)
