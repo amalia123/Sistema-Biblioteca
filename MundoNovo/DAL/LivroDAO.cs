@@ -11,14 +11,14 @@ namespace MundoNovo.DAL
     {
         private static Context ctx = Singleton.Instance.Context;
 
-        public static List<Livro> BuscarLivroPorNome(string busca, string login)
+        public static List<Livro> BuscarLivroPorNome(string busca)
         {
-            return ctx.Livros.Where(x => x.titulo.Contains(busca) && x.bibliotecario.login == login).ToList();
+            return ctx.Livros.Where(x => x.titulo.Contains(busca)).ToList();
         }
 
-        public static List<Livro> ListarLivros(string login)
+        public static List<Livro> ListarLivros()
         {
-            return ctx.Livros.Where(x => x.bibliotecario.login == login).ToList();
+            return ctx.Livros.ToList();
         }
 
         public static Livro BuscarLivroPorId(int? id)

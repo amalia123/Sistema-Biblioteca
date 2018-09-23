@@ -32,13 +32,15 @@ namespace MundoNovo.DAL
              Bibliotecario biblioAux = ctx.Bibliotecarios.FirstOrDefault(x => x.login == bibliotecario.login && x.senha == bibliotecario.senha);
              if (biblioAux != null)
              {
-                 return biblioAux.id;
+              
+                return biblioAux.id;
              }
              else
              {
-                 return 0;
-             }
-
+                return 0;
+               
+            }
+          
         }
 
         public static Bibliotecario BuscarBibliotecarioPorId(int? id)

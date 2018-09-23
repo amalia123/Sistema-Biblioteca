@@ -34,7 +34,9 @@ namespace MundoNovo.Controllers
         [AllowAnonymous]
         public ActionResult Entrar([Bind(Include = "login,senha")] Bibliotecario bibliotecario)
         {
-            int loginId = BibliotecarioDAO.Login(bibliotecario);
+           
+
+           int loginId = BibliotecarioDAO.Login(bibliotecario);
             if (loginId != 0)
             {
                 bibliotecario = BibliotecarioDAO.BuscarBibliotecarioPorId(loginId);
@@ -44,7 +46,7 @@ namespace MundoNovo.Controllers
                // BibliotecarioDAO.EditarBibliotecario(bibliotecario);
 
                 //Seta o Cookie de autenticação
-                FormsAuthentication.SetAuthCookie(bibliotecario.login, false);
+               // FormsAuthentication.SetAuthCookie(bibliotecario.login, false);
                 return View("Index", BibliotecarioDAO.ListarBibliotecarios());
             }
             else

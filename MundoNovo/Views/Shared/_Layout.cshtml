@@ -9,48 +9,52 @@
 </head>
 <body>
     @*@if (HttpContext.Current.Session["GuidId"] == null)
-    {
-        Response.Redirect("~/Bibliotecarios/Login");
-    }*@
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <div class="collapse navbar-collapse">
-                <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item">
-                        @Html.ActionLink("Listar Livros", "Index", "Livros", null, new { @class = "nav-link", @style = "color:white;" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Cadastrar livro", "Create", "Livros", null, new { @class = "nav-link", @style = "color:white;" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Usuários", "Index", "Bibliotecarios", null, new { @class = "nav-link", @style = "color:white;" })
-                    </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("Empréstimos", "Index", "Emprestimos", null, new { @class = "nav-link", @style = "color:white;" })
-                    </li>
-
+        {
+            Response.Redirect("~/Bibliotecarios/Login");
+        }*@
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    @if (HttpContext.Current.Session["GuidId"] != null)
+                    {
+                        <li>
+                            @Html.ActionLink("Listar Livros", "Index", "Livros", null, new { @class = "nav-link", @style = "color:white;" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Cadastrar livro", "Create", "Livros", null, new { @class = "nav-link", @style = "color:white;" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Usuários", "Index", "Bibliotecarios", null, new { @class = "nav-link", @style = "color:white;" })
+                        </li>
+                        <li>
+                            @Html.ActionLink("Empréstimos", "Index", "Emprestimos", null, new { @class = "nav-link", @style = "color:white;" })
+                        </li>
+                    }
                 </ul>
+
                 <div class="form-inline my-2 my-lg-0">
                     @Html.ActionLink("Sair", "Sair", "Bibliotecarios", null, new { @class = "nav-link", @style = "color:white;" })
                 </div>
             </div>
-         </div>
-    </nav>
+</div>
+          </div>
 
     <div class="container" style="margin-top:50px;margin-bottom:50px">
         @RenderBody()
+
+
+        <hr />
+        <footer style="text-align:center">
+            <p>
+                &copy; @DateTime.Now.Year - Desenvolvido por Amália Cristina e Gabriela Bojarski
+            </p>
+        </footer>
     </div>
-
-    <hr />
-    <footer style="text-align:center">
-        <p>
-            &copy; @DateTime.Now.Year - Desenvolvido por Amália Cristina e Gabriela Bojarski
-        </p>
-    </footer>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -12,9 +12,9 @@ namespace MundoNovo.DAL
 
         private static Context ctx = Singleton.Instance.Context;
 
-        public static List<Emprestimo> RetonarEmprestimos(string login)
+        public static List<Emprestimo> RetonarEmprestimos()
         {
-            List<Emprestimo> listaEmprestimos = ctx.Emprestimos.Where(x => x.bibliotecario.login == login).ToList();
+            List<Emprestimo> listaEmprestimos = ctx.Emprestimos.ToList();
             foreach (Emprestimo item in listaEmprestimos)
             {
                 DateTime dd = DateTime.Parse(item.dataDevolucao);
