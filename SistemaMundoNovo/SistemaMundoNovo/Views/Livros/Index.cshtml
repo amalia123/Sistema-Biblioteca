@@ -75,9 +75,9 @@
             @Html.DisplayFor(modelItem => item.categoria.Nome)
         </td>
         <td>
-            @Html.ActionLink("Emprestar", "Create", "Emprestimos", new { id = item.id }, new { @class = "btn btn-success" })) |
-            @Html.ActionLink("Detalhes", "Details", new { id = item.id }) |
-            @Html.ActionLink("Excluir", "Delete", new { id = item.id })
+            @Html.ActionLink("Emprestar", "Create", "Emprestimos", new { id = item.id }, new { @class = "btn btn-success" }) |
+            @Html.ActionLink("Detalhes", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Excluir", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
         </td>
     </tr>
         }
@@ -104,8 +104,8 @@
                 </td>
                 <td>
                     @Html.ActionLink("Emprestar", "Create", "Emprestimos", new { id = item.id }, new { @class = "btn btn-success" }) |
-                    @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                    @Html.ActionLink("Excluir", "Delete", new { id = item.id })
+                    @Html.ActionLink("Detalhes", "Details", new { id = item.id }, new { @class = "btn btn-warning" }) |
+                    @Html.ActionLink("Excluir", "Delete", new { id = item.id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }

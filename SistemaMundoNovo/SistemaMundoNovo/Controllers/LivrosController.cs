@@ -21,7 +21,7 @@ namespace SistemaMundoNovo.Controllers
             if (livros.Count() == 0)
             {
                 ViewBag.resultado = "Livro não encontrado";
-                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).ToList();
+                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria.Nome).ToList();
                 return View("Index");
             }
             ViewBag.Livros = livros;
@@ -35,7 +35,7 @@ namespace SistemaMundoNovo.Controllers
 
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado);
+            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria.Nome);
             return View(livroes.ToList());
         }
 
