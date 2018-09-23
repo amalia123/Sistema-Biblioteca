@@ -17,7 +17,7 @@ namespace SistemaMundoNovo.Models
         [Display(Name = "Autor")]
         public string autor { get; set; }
 
-        [Display(Name = "Data = dd/mm/aaaa")]
+        [Display(Name = "Data dd/mm/aa")]
         [DisplayFormat(DataFormatString = "dd/mm/aa")]
         public DateTime ano { get; set; }
 

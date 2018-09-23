@@ -17,7 +17,7 @@ namespace SistemaMundoNovo.Controllers
         {
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-            var livros = db.Livros.Where(x => x.titulo.Contains(busca) && x.BibliotecarioID == idBibliotecarioLogado);
+            var livros = db.Livros.Where(x => x.titulo.Contains(busca) && x.BibliotecarioID == idBibliotecarioLogado).ToList();
             if (livros.Count() == 0)
             {
                 ViewBag.resultado = "Livro não encontrado";
@@ -57,9 +57,8 @@ namespace SistemaMundoNovo.Controllers
         // GET: Livros/Create
         public ActionResult Create()
         {
-            ViewBag.Categorias = new SelectList(
-                CategoriaDAO.ListarCategorias(),
-                "id", "nome");
+           // ViewBag.Categorias = new SelectList( CategoriaDAO.ListarCategorias(),"id", "nome");
+            ViewBag.Categorias = new SelectList(db.Categorias, "CategoriaId", "Nome");
             //ViewBag.BibliotecarioID = new SelectList(db.Bibliotecarios, "BibliotecarioID", "Nome");
             return View();
         }
@@ -90,8 +89,8 @@ namespace SistemaMundoNovo.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-           // ViewBag.BibliotecarioID = new SelectList(db.Bibliotecarios, "BibliotecarioID", "Nome", livro.BibliotecarioID);
+            ViewBag.Categorias = new SelectList(db.Categorias, "CategoriaId", "Nome", livro.categoria);
+            // ViewBag.BibliotecarioID = new SelectList(db.Bibliotecarios, "BibliotecarioID", "Nome", livro.BibliotecarioID);
             return View(livro);
         }
 
@@ -108,9 +107,7 @@ namespace SistemaMundoNovo.Controllers
                 return HttpNotFound();
             }
 
-            ViewBag.Categorias = new SelectList(
-               CategoriaDAO.ListarCategorias(),
-               "id", "nome");
+            ViewBag.Categorias = new SelectList(db.Categorias, "CategoriaId", "Nome", livro.categoria);
             //ViewBag.BibliotecarioID = new SelectList(db.Bibliotecarios, "BibliotecarioID", "Nome", livro.BibliotecarioID);
             return View(livro);
         }
@@ -125,7 +122,7 @@ namespace SistemaMundoNovo.Controllers
             Livro livroAux = db.Livros.Find(livro);
             livroAux.ano = livro.ano;
             livroAux.autor = livro.autor;
-            livroAux.categoria = CategoriaDAO.BuscarCategoriaPorId(Categorias);
+            livroAux.categoria = livro.categoria;
             livroAux.descricao = livro.descricao;
            // livroAux.BibliotecarioID = livro.BibliotecarioID;
             livroAux.titulo = livro.titulo;
@@ -137,9 +134,7 @@ namespace SistemaMundoNovo.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Categorias = new SelectList(
-              CategoriaDAO.ListarCategorias(),
-              "id", "nome");
+            ViewBag.Categorias = new SelectList(db.Categorias, "CategoriaId", "Nome", livro.categoria);
             //ViewBag.BibliotecarioID = new SelectList(db.Bibliotecarios, "BibliotecarioID", "Nome", livro.BibliotecarioID);
             return View(livro);
         }
