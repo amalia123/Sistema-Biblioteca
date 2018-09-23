@@ -11,7 +11,7 @@ namespace SistemaMundoNovo.Controllers
     public class LivrosController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        //private ApplicationDbContext db = Singleton.Instance.Context;
         //Buscar livro
         public ActionResult Busca(string busca)
         {

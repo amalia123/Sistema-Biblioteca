@@ -8,8 +8,9 @@
 <h2>Lista de Categorias</h2>
 
 <p>
-    @Html.ActionLink("Cadastrar Categoria", "Create")
+    @Html.ActionLink("Cadastrar Categoria", "Create", "Categorias", new { @class = "btn btn-primary" })
 </p>
+<hr /><hr />
 <table class="table">
     <tr>
         <th>
@@ -24,9 +25,9 @@
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.CategoriaId }) |
-            @Html.ActionLink("Detalhes", "Details", new { id=item.CategoriaId }) |
-            @Html.ActionLink("Excluir", "Delete", new { id=item.CategoriaId })
+            @Html.ActionLink("Editar", "Edit", "Categorias", new { id=item.CategoriaId }, new { @class = "btn btn-warning" }) |
+            @Html.ActionLink("Detalhes", "Details", "Categorias", new { id=item.CategoriaId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Excluir", "Delete","Categorias", new { id=item.CategoriaId }, new { @class = "btn btn-danger" })
         </td>
     </tr>
 }
