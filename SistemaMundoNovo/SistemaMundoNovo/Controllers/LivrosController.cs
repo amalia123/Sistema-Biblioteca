@@ -35,7 +35,7 @@ namespace SistemaMundoNovo.Controllers
 
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria.Nome);
+            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x.categoria);
             return View(livroes.ToList());
         }
 
@@ -101,7 +101,7 @@ namespace SistemaMundoNovo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Livro livro = db.Livros.Find(id);
+            Livro livro = db.Livros.Find(id.GetValueOrDefault());
             if (livro == null)
             {
                 return HttpNotFound();
@@ -117,9 +117,9 @@ namespace SistemaMundoNovo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titulo,autor,ano,descricao,BibliotecarioID")] Livro livro, int Categorias)
+        public ActionResult Edit([Bind(Include = "id,titulo,autor,ano,descricao,BibliotecarioID")] Livro livro)
         {
-            Livro livroAux = db.Livros.Find(livro);
+            Livro livroAux = db.Livros.Find(livro.id);
             livroAux.ano = livro.ano;
             livroAux.autor = livro.autor;
             livroAux.categoria = livro.categoria;
@@ -129,7 +129,8 @@ namespace SistemaMundoNovo.Controllers
 
             if (ModelState.IsValid)
             {
-                db.Entry(livro).State = EntityState.Modified;
+                db.Entry(livroAux).CurrentValues.SetValues(livro);
+                db.Entry(livroAux).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
