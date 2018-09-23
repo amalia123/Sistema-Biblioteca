@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SistemaMundoNovo.Models.Livro>
+﻿@model List<SistemaMundoNovo.Models.Livro>
 @using SistemaMundoNovo.Models
 @{
     ViewBag.Title = "Index";
@@ -8,7 +8,7 @@
 <h2>Lista de Livros</h2>
 
 <p>
-    @Html.ActionLink("Cadastrar Livros", "Create")
+    @Html.ActionLink("Cadastrar Livros", "Create","Livros", null, new { @class = "btn btn-primary" })
 </p>
 
 <div class="container">
@@ -35,25 +35,25 @@
                 @Html.DisplayNameFor(model => model._Bibliotecario.Nome)
             </th>*@
         <th>
-            @Html.DisplayNameFor(model => model.titulo)
+            Título
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.autor)
+           Autor
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ano)
+           Data
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.descricao)
+           Descrição
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.categoria.Nome)
+           Categoria
         </th>
     </tr>
 
     @if (Model != null)
     {
-        @foreach (Livro item in Model)
+        foreach (Livro item in Model)
         {
     <tr>
         @*<td>
@@ -103,7 +103,7 @@
                     @Html.DisplayFor(modelItem => item.categoria.Nome)
                 </td>
                 <td>
-                    @Html.ActionLink("Emprestar", "Emprestimo", "Emprestimos", new { id = item.id }, new { @class = "btn btn-success" }) |
+                    @Html.ActionLink("Emprestar", "Create", "Emprestimos", new { id = item.id }, new { @class = "btn btn-success" }) |
                     @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
                     @Html.ActionLink("Excluir", "Delete", new { id = item.id })
                 </td>
