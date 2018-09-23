@@ -65,7 +65,7 @@ namespace SistemaMundoNovo.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Categoria categoria = db.Categorias.Find(id);
+            Categoria categoria = db.Categorias.Find(id.GetValueOrDefault());
             if (categoria == null)
             {
                 return HttpNotFound();
@@ -82,7 +82,9 @@ namespace SistemaMundoNovo.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(categoria).State = EntityState.Modified;
+                Categoria c = db.Categorias.Find(categoria.CategoriaId);
+                db.Entry(c).CurrentValues.SetValues(categoria);
+                db.Entry(c).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
