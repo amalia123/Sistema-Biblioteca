@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.Data.Entity.ModelConfiguration.Conventions;
 
 namespace SistemaMundoNovo.Models
 {
@@ -42,6 +43,11 @@ namespace SistemaMundoNovo.Models
             return new ApplicationDbContext();
         }
 
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            base.OnModelCreating(modelBuilder);
+        }
         public DbSet<Bibliotecario> Bibliotecarios { get; set; }
 
         public DbSet<SistemaMundoNovo.Models.Livro> Livros { get; set; }

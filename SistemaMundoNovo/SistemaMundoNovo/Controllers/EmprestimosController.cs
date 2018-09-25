@@ -114,7 +114,7 @@ namespace SistemaMundoNovo.Controllers
                 emprestimo = JsonConvert.DeserializeObject<Emprestimo>(resultado);
 
                 emprestimo.Endereco = emprestimo.Logradouro + " " + emprestimo.Localidade;
-                emprestimo.Livro = aux.Livro;
+                emprestimo._Livro = aux._Livro;
                 emprestimo.Nome = aux.Nome;
                 emprestimo.Status = aux.Status;
                 emprestimo.BibliotecarioID = aux.BibliotecarioID;
@@ -139,7 +139,8 @@ namespace SistemaMundoNovo.Controllers
         public ActionResult Create(int? id)
         {
             Emprestimo emprestimo = new Emprestimo();
-            emprestimo.Livro = db.Livros.Find(id);
+            emprestimo.LivroID = id.Value;
+            emprestimo._Livro = db.Livros.Find(id);
        
             return View(emprestimo);
         }
@@ -149,7 +150,7 @@ namespace SistemaMundoNovo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,livro,valor,cep,endereco")] Emprestimo emprestimo, string nome, DateTime dataPrazo)
+        public ActionResult Create([Bind(Include = "id,LivroID,valor,cep,endereco")] Emprestimo emprestimo, string nome, DateTime dataPrazo)
         {
            /* ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
           int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;*/
@@ -172,6 +173,7 @@ namespace SistemaMundoNovo.Controllers
                 emprestimo.Localidade = aux.Localidade;
                 emprestimo.Uf = aux.Uf;
                 emprestimo.Logradouro = aux.Logradouro;
+                
             }
             catch
             {
@@ -184,10 +186,10 @@ namespace SistemaMundoNovo.Controllers
 
             if (ModelState.IsValid)
             {
-               
-                emprestimo._Livro.ano = DateTime.Now;
+                
                 emprestimo.DataDevolucao = "26/04/2000 00:00:00";
                 emprestimo.DataPrazo = DateTime.Now.AddDays(5).ToString();
+                db.Emprestimos.Add(emprestimo);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
