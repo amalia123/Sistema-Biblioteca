@@ -201,9 +201,9 @@ namespace SistemaMundoNovo.Controllers
         // POST: Emprestimos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id)
+        public ActionResult Delete(Emprestimo emp)
         {
-            Emprestimo emprestimo = db.Emprestimos.Find(id);
+            Emprestimo emprestimo = db.Emprestimos.Find(emp.EmprestimoId);
             db.Emprestimos.Remove(emprestimo);
             db.SaveChanges();
             return RedirectToAction("Index");

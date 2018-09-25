@@ -84,12 +84,12 @@
                 if (item.Status == -1)
                 {
                     <span style="color: red">Atrasado</span>
-                <td>@Html.ActionLink("Dar Baixa", "Delete", new { id = item.EmprestimoId });</td>
+                <td>@Html.ActionLink("Dar Baixa", "Edit", new { id = item.EmprestimoId });</td>
             }
             else if (item.Status == 0)
             {
                 <span style="color: darkgoldenrod">Pendente</span>
-                <td>@Html.ActionLink("Dar Baixa", "Delete", new { id = item.EmprestimoId });</td>
+                <td>@Html.ActionLink("Dar Baixa", "Edit", new { id = item.EmprestimoId })</td>
             }
             else if (item.Status == 1)
             {
