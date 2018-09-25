@@ -13,7 +13,11 @@ namespace SistemaMundoNovo.Models
         [Key]
         public int EmprestimoId { get; set; }
 
-        public Livro Livro { get; set; }
+
+        public int LivroID { get; set; }
+        public virtual Livro _Livro { get; set; }
+
+
         public int BibliotecarioID { get; set; }
         public virtual Bibliotecario _Bibliotecario { get; set; }
 

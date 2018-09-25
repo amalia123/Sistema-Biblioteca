@@ -141,7 +141,7 @@ namespace SistemaMundoNovo.Controllers
             Emprestimo emprestimo = new Emprestimo();
             emprestimo.Livro = db.Livros.Find(id);
        
-            return View("Emprestimo", emprestimo);
+            return View(emprestimo);
         }
 
         // POST: Emprestimos/Create
@@ -180,15 +180,14 @@ namespace SistemaMundoNovo.Controllers
 
             emprestimo.Status = 0;
             emprestimo.Nome = nome;
-          //  emprestimo.BibliotecarioID = idBibliotecarioLogado;
+            emprestimo.BibliotecarioID = UsuarioUtils.RetornaIdBibliotecarioLogado();
 
             if (ModelState.IsValid)
             {
                
-                emprestimo.Livro.ano = DateTime.Now;
+                emprestimo._Livro.ano = DateTime.Now;
                 emprestimo.DataDevolucao = "26/04/2000 00:00:00";
-                emprestimo.DataPrazo = Convert.ToString(dataPrazo);
-                db.Emprestimos.Add(emprestimo);
+                emprestimo.DataPrazo = DateTime.Now.AddDays(5).ToString();
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
