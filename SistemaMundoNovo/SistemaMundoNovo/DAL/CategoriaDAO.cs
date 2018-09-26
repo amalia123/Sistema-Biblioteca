@@ -17,7 +17,8 @@ namespace SistemaMundoNovo.DAL
 
         public static Categoria BuscarCategoriaPorId(int? id)
         {
-            return db.Categorias.Find(id);  
+           
+            return db.Categorias.Find(id);
         }
     }
 }

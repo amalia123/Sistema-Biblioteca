@@ -21,7 +21,8 @@ namespace SistemaMundoNovo.Models
         public DateTime ano { get; set; }
 
         [Display(Name = "Categoria")]
-        public Categoria categoria { get; set; }
+        public int categoriaId { get; set; }
+        public virtual Categoria _categoria { get; set; }
 
         [Display(Name = "Descrição")]
         public string descricao { get; set; }

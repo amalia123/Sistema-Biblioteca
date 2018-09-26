@@ -28,7 +28,7 @@
             @Html.DisplayNameFor(model => model.descricao)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.categoria.Nome)
+            @Html.DisplayNameFor(model => model._categoria.Nome)
         </th>
     </tr>
 
@@ -50,7 +50,7 @@
             @Html.DisplayFor(modelItem => item.descricao)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.categoria.Nome)
+            @Html.DisplayFor(modelItem => item._categoria.Nome)
         </td>
         <td>
             @Html.ActionLink("Emprestar", "Create", "Emprestimos", new { id = item.id }, new { @class = "btn btn-primary" }) |
