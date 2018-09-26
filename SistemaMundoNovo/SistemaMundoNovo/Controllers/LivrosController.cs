@@ -21,7 +21,7 @@ namespace SistemaMundoNovo.Controllers
             if (livros.Count() == 0)
             {
                 ViewBag.resultado = "Livro não encontrado";
-                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x._categoria.CategoriaId).ToList();
+                ViewBag.TodosLivros = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x._categoria).ToList();
                 return View("Index");
             }
             ViewBag.Livros = livros;
@@ -35,7 +35,7 @@ namespace SistemaMundoNovo.Controllers
 
             ApplicationUser b = UsuarioUtils.RetornaUsuarioLogado();
             int idBibliotecarioLogado = b._Bibliotecario.BibliotecarioID;
-            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x._categoria.CategoriaId);
+            var livroes = db.Livros.Where(x => x.BibliotecarioID == idBibliotecarioLogado).Include(x => x._categoria);
             return View(livroes.ToList());
         }
 
@@ -117,7 +117,7 @@ namespace SistemaMundoNovo.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,titulo,autor,ano,descricao,BibliotecarioID")] Livro livro)
+        public ActionResult Edit([Bind(Include = "id,titulo,autor,ano,descricao,BibliotecarioID")] Livro livro, int Categorias)
         {
 
             /*ApplicationUser usuario = UsuarioUtils.RetornaUsuarioLogado();
@@ -134,6 +134,15 @@ namespace SistemaMundoNovo.Controllers
 
             if (ModelState.IsValid)
             {
+                // identificando novamente o bibliotecario logado para editar o livro
+                ApplicationUser usuario = UsuarioUtils.RetornaUsuarioLogado();
+                int idBibliotecarioLogado = usuario._Bibliotecario.BibliotecarioID;
+                livro.BibliotecarioID = idBibliotecarioLogado;
+
+                //incluindo a categoria novamente
+                Categoria categ = CategoriaDAO.BuscarCategoriaPorId(Categorias);
+                livro.categoriaId = categ.CategoriaId;
+
                 db.Entry(livroAux).CurrentValues.SetValues(livro);
                 db.Entry(livroAux).State = EntityState.Modified;
                 db.SaveChanges();
