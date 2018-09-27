@@ -97,6 +97,29 @@ namespace SistemaMundoNovo.Controllers
             return View(emprestimo);
         }
 
+
+        public ActionResult RegistrarBaixaEmprestimo(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Emprestimo emprestimo = db.Emprestimos.Find(id);
+
+            if (emprestimo == null)
+            {
+                return HttpNotFound();
+            }
+
+            emprestimo.DataDevolucao = DateTime.Today.ToShortDateString();
+
+            db.Entry(emprestimo).State = EntityState.Modified;
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         public ActionResult PesquisarCep(Emprestimo emprestimo)
         {
